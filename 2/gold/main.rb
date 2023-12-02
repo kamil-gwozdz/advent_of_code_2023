@@ -4,8 +4,6 @@ input = file.read.split("\n")
 result = 0
 
 input.each do |line|
-  game_number = line.scan(/Game (\d+):/).first.first.to_i
-
   blues = []
   greens = []
   reds = []
