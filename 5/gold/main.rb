@@ -52,17 +52,13 @@ def process_range(range, element_idx, tmp_result)
 
     overlap = true
 
-    old_value_ranges = MultiRange.new(range) - MultiRange.new(mapping[:from_range])
-    new_value_ranges = MultiRange.new(range) & MultiRange.new(mapping[:from_range])
+    old_value_ranges = MultiRange.new([range]) - MultiRange.new([mapping[:from_range]])
+    new_value_ranges = MultiRange.new([range]) & MultiRange.new([mapping[:from_range]])
 
-    puts "old_value_ranges.ranges.size"
-    puts old_value_ranges.ranges.size
     old_value_ranges.ranges.each do |old_value_range|
       tmp_result = [process_range(old_value_range, element_idx+1, tmp_result), tmp_result].min
     end
 
-    puts "new_value_ranges.ranges.size"
-    puts new_value_ranges.ranges.size
     new_value_ranges.ranges.each do |new_value_range|
       new_range = (new_value_range.begin + mapping[:offset])..(new_value_range.end + mapping[:offset])
       tmp_result = [process_range(new_range, element_idx+1, tmp_result), tmp_result].min
@@ -77,8 +73,9 @@ end
 
 result = 999999999999999999999999
 seed_ranges.each do |range|
-  puts range
   result = [process_range(range, 0, result), result].min
 end
 
+# too low 38483849
+#
 puts result
