@@ -71,6 +71,4 @@ seed_ranges.each do |range|
   result = [process_range(range, 0, result), result].min
 end
 
-# too low 38483849
-#
 puts result
