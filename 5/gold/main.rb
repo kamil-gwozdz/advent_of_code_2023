@@ -46,28 +46,23 @@ def process_range(range, element_idx, tmp_result)
   from_element = @elements[element_idx]
   to_element = @elements[element_idx+1]
 
-  overlap = false
+  old_value_ranges = MultiRange.new([range])
   @elements_map[[from_element, to_element]].each do |mapping|
     next unless mapping[:from_range].overlaps?(range)
 
-    overlap = true
-
-    old_value_ranges = MultiRange.new([range]) - MultiRange.new([mapping[:from_range]])
+    old_value_ranges -= MultiRange.new([mapping[:from_range]])
     new_value_ranges = MultiRange.new([range]) & MultiRange.new([mapping[:from_range]])
-
-    old_value_ranges.ranges.each do |old_value_range|
-      tmp_result = [process_range(old_value_range, element_idx+1, tmp_result), tmp_result].min
-    end
 
     new_value_ranges.ranges.each do |new_value_range|
       new_range = (new_value_range.begin + mapping[:offset])..(new_value_range.end + mapping[:offset])
       tmp_result = [process_range(new_range, element_idx+1, tmp_result), tmp_result].min
     end
-
-    break
   end
 
-  tmp_result = [process_range(range, element_idx+1, tmp_result), tmp_result].min unless overlap
+  old_value_ranges.ranges.each do |old_value_range|
+    tmp_result = [process_range(old_value_range, element_idx+1, tmp_result), tmp_result].min
+  end
+
   tmp_result
 end
 
