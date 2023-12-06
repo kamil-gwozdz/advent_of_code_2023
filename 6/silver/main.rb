@@ -10,9 +10,7 @@ recorded_times.zip(recorded_distances).each do |recorded_time, recorded_distance
   (0..recorded_time).each do |speed|
     time_left = recorded_time - speed
     distance = speed * time_left
-    if distance > recorded_distance
-      race_result += 1
-    end
+    race_result += 1 if distance > recorded_distance
   end
 
   result *= race_result
