@@ -72,7 +72,6 @@ loop do
   result += 1
 
   break if current_row == start_row && current_column == start_column
-  break if matrix[current_row][current_column] == "."
 end
 
 puts (result+1)/2
