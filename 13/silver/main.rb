@@ -37,7 +37,6 @@ def reflects?(matrix, upper_row_candidate)
 end
 
 matrices.each do |matrix|
-  puts_matrix(matrix)
   upper_row_candidates(matrix).each do |upper_row_candidate|
     result += (upper_row_candidate + 1) * 100 if reflects?(matrix, upper_row_candidate)
   end
