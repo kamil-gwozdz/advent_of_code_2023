@@ -14,7 +14,7 @@ end
 
 box = {}
 
-input.split(",").each do |instruction|
+input.split(',').each do |instruction|
   lens_label, focal_length = instruction.split(/[-=]/)
   box_number = hash(lens_label)
   focal_length = focal_length.to_i
@@ -22,7 +22,7 @@ input.split(",").each do |instruction|
   box[box_number] ||= []
   lens_index = box[box_number].index { |lens| lens&.first == lens_label }
 
-  if instruction.include?("=")
+  if instruction.include?('=')
     if lens_index
       box[box_number][lens_index] = [lens_label, focal_length]
     else
@@ -36,7 +36,7 @@ end
 result = 0
 box.each do |box_number, lenses|
   lenses.compact.each_with_index do |lens, lens_index|
-    result += (box_number+1)*(lens_index+1)*lens.last
+    result += (box_number + 1) * (lens_index + 1) * lens.last
   end
 end
 
