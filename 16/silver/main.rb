@@ -13,7 +13,7 @@ end
 
 def step(row_id, column_id, direction, beam_id = 0)
   return if @grid[[row_id, column_id]].nil?
-  return if @beam_tracker[[beam_id, row_id, column_id, direction]] && @beam_tracker[[beam_id, row_id, column_id, direction]] > 1
+  return if @beam_tracker[[beam_id, row_id, column_id, direction]]&.> 1
 
   @energised[[row_id, column_id]] = true
   @beam_tracker[[beam_id, row_id, column_id, direction]] ||= 0
